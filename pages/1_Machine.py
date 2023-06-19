@@ -1,11 +1,15 @@
 import streamlit as st
 import re
-import os
 import pandas as pd
+from pathlib import Path
 import Backend as be
 
 st.set_page_config(page_title="IEIS - Machine", page_icon="🖼️")
 st.title("Machine ⚙️")
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+image_folder_happy = BASE_DIR / "dataset/happy/"
+image_folder_sad = BASE_DIR / "dataset/sad/"
 
 txt = st.text_area('Enter k values separated by commas', placeholder='3, 5, 7, 9')
 valid_characters = "0123456789, \n"
@@ -30,8 +34,8 @@ def fixed_data():
     col1, col2 = st.columns(2)
     with col1:
         st.subheader('Data Percentage')
-        positive_images = os.listdir("dataset/happy/")
-        negative_images = os.listdir("dataset/sad/")
+        positive_images = list(image_folder_happy.glob("*"))
+        negative_images = list(image_folder_sad.glob("*"))
         chart_data = pd.DataFrame(
             {'happy': [len(positive_images)],
             'sad': [len(negative_images)]},
