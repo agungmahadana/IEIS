@@ -19,7 +19,7 @@ def case_folding(sentence):
 def real_k():
     st.subheader('Percentage of Accuracy Testing')
     k = [3, 5, 7, 9]
-    accuracy = [48, 50, 52, 54]
+    accuracy = [be.knn_score(int(n)) for n in k]
     chart_data = pd.DataFrame(
         {'k': [float(val) for val in accuracy]},
         index=k

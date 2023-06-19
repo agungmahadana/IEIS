@@ -5,7 +5,7 @@ import Backend as be
 
 st.set_page_config(page_title="IEIS", page_icon="🖼️")
 st.title("Welcome to IEIS! 👋")
-st.caption("Image Emotion Identification System (IEIS) is a web-based application that can analyze the colors and textures of images based on various techniques. This app allows users to analyze more than 4,000 image samples for color analysis (such as converting an image to a pixel matrix, generating a color histogram, and calculating first-order statistics) and texture analysis (such as generating the Gray Level Co-occurrence Matrix (GLCM) of an image and creating a texture histogram). This app was created by a [student](https://github.com/agungmahadana/) using Python and Streamlit. PASTIKAN GAMBAR YANG KAMU UPLOAD MEMILIKI RASIO 1:1 DAN MEMILIKI RESOLUSI 48x48 DAN TEPAT DI DEPAN WAJAHNYA.")
+st.caption("Image Emotion Identification System (IEIS) is a web-based application that can analyze the sentiment of the image. This app utilizes the GLCM method for texture analysis, and the K-Nearest Neighbors (KNN) algorithm to classify the image's sentiment with more than 2,000 dataset. It is important to note that the uploaded images should have a resolution of 48x48 pixels, a 1:1 aspect ratio and be properly aligned with the face.")
 
 uploaded_file = st.file_uploader("Choose a file", type=['png', 'jpg', 'jpeg'])
 k = st.number_input("Enter the value of k", min_value=1)
