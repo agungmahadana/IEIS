@@ -1,9 +1,9 @@
+import os
 import numpy as np
 from skimage import io, color, util
 from skimage.feature import graycomatrix, graycoprops
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from pathlib import Path
 
 # Hitung fitur GLCM
 def compute_glcm(image, angles):
@@ -26,17 +26,17 @@ X = []  # Features
 y = []  # Labels
 
 # Load citra dengan ekspresi happy
-positive_images = Path("dataset/happy/").glob("*")
+positive_images = os.listdir("dataset/happy/")
 for img_path in positive_images:
-    image = io.imread(img_path)
+    image = io.imread("dataset/happy/" + img_path)
     features = glcm_matrix(image)
     X.append(features)
     y.append(1)  # Sentimen positif
 
 # Load citra dengan ekspresi sad
-negative_images = Path("dataset/sad/").glob("*")
+negative_images = os.listdir("dataset/sad/")
 for img_path in negative_images:
-    image = io.imread(img_path)
+    image = io.imread("dataset/sad/" + img_path)
     features = glcm_matrix(image)
     X.append(features)
     y.append(0)  # Sentimen negatif
