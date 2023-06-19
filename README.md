@@ -6,7 +6,7 @@
 
 ![IEIS Screen Shot](images/readme.jpeg)
 
-Image Emotion Identification System [(IEIS)](#) is a web-based application that can analyze the sentiment of the image. This app utilizes the GLCM method for texture analysis, and the K-Nearest Neighbors (KNN) algorithm to classify the image's sentiment with more than 2,000 dataset. It is important to note that the uploaded images should have a resolution of 48x48 pixels, a 1:1 aspect ratio and be properly aligned with the face.
+Image Emotion Identification System [(IEIS)](https://agungmahadana-ieis-home-odfm5c.streamlit.app/) is a web-based application that can analyze the sentiment of the image. This app utilizes the GLCM method for texture analysis, and the K-Nearest Neighbors (KNN) algorithm to classify the image's sentiment with more than 2,000 dataset. It is important to note that the uploaded images should have a resolution of 48x48 pixels, a 1:1 aspect ratio and be properly aligned with the face.
 
 Use the `README.md` to get started.
 
