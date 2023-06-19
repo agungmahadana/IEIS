@@ -44,17 +44,27 @@ for img_path in negative_images:
 # Pisahkan data menjadi data latih dan data uji
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-def knn(features, n):
+def knn_predict(features, n):
     # Inisialisasi model KNN
     knn = KNeighborsClassifier(n_neighbors=n)
-
     # Latih model
     knn.fit(X_train, y_train)
-
     # Prediksi sentimen
     prediction = knn.predict([features])
-    
     # Evaluasi model
     accuracy = knn.score(X_test, y_test)
     accuracy_percentage = accuracy * 100
     return prediction[0], accuracy_percentage
+
+def knn_score(n):
+    # Inisialisasi model KNN
+    knn = KNeighborsClassifier(n_neighbors=n)
+    # Latih model
+    knn.fit(X_train, y_train)
+    # Evaluasi model
+    accuracy = knn.score(X_test, y_test)
+    accuracy_percentage = accuracy * 100
+    return accuracy_percentage.round(2)
+
+def get_data():
+    return [len(X_train), len(X_test)]

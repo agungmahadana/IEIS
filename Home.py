@@ -3,7 +3,7 @@ import pandas as pd
 from skimage import io, color, util, transform
 import Backend as be
 
-st.set_page_config(page_title="Image Processing", page_icon="🖼️")
+st.set_page_config(page_title="IEIS", page_icon="🖼️")
 st.title("Welcome to IEIS! 👋")
 st.caption("Image Emotion Identification System (IEIS) is a web-based application that can analyze the colors and textures of images based on various techniques. This app allows users to analyze more than 4,000 image samples for color analysis (such as converting an image to a pixel matrix, generating a color histogram, and calculating first-order statistics) and texture analysis (such as generating the Gray Level Co-occurrence Matrix (GLCM) of an image and creating a texture histogram). This app was created by a [student](https://github.com/agungmahadana/) using Python and Streamlit. PASTIKAN GAMBAR YANG KAMU UPLOAD MEMILIKI RASIO 1:1 DAN MEMILIKI RESOLUSI 48x48 DAN TEPAT DI DEPAN WAJAHNYA.")
 
@@ -29,7 +29,7 @@ else:
 
         img = util.img_as_ubyte(img)
         new_features = be.glcm_matrix(img)
-        prediction = be.knn(new_features, k)
+        prediction = be.knn_predict(new_features, k)
 
         col1, col2 = st.columns(2)
         with col1:
@@ -43,7 +43,7 @@ else:
                 data_df1,
                 column_config={
                     "sentiment": st.column_config.TextColumn(
-                        "Sentiment",
+                        label="Sentiment",
                         help="The sentiment of the image",
                         width="medium",
                     )
@@ -55,8 +55,8 @@ else:
                 column_config={
                     "accuracy": st.column_config.ProgressColumn(
                         label="Accuracy",
-                        width="medium",
                         help="The accuracy of the model",
+                        width="medium",
                         format="%.2f%%",
                         min_value=0,
                         max_value=100,
