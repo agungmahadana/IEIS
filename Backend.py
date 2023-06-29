@@ -1,4 +1,5 @@
 import os
+import joblib
 import numpy as np
 from skimage import io, color, util
 from skimage.feature import graycomatrix, graycoprops
@@ -22,37 +23,32 @@ def glcm_matrix(image):
         matrix.append(row)
     return np.array(matrix).flatten()
 
-X = []  # Features
-y = []  # Labels
+# X = []  # Features
+# y = []  # Labels
 
-# Load citra dengan ekspresi happy
-positive_images = os.listdir("dataset/happy/")
-for img_path in positive_images:
-    image = io.imread("dataset/happy/" + img_path)
-    features = glcm_matrix(image)
-    X.append(features)
-    y.append(1)  # Sentimen positif
+# # Load citra dengan ekspresi happy
+# positive_images = os.listdir("dataset/happy/")
+# for img_path in positive_images:
+#     image = io.imread("dataset/happy/" + img_path)
+#     features = glcm_matrix(image)
+#     X.append(features)
+#     y.append(1)  # Sentimen positif
 
-# Load citra dengan ekspresi sad
-negative_images = os.listdir("dataset/sad/")
-for img_path in negative_images:
-    image = io.imread("dataset/sad/" + img_path)
-    features = glcm_matrix(image)
-    X.append(features)
-    y.append(0)  # Sentimen negatif
+# # Load citra dengan ekspresi sad
+# negative_images = os.listdir("dataset/sad/")
+# for img_path in negative_images:
+#     image = io.imread("dataset/sad/" + img_path)
+#     features = glcm_matrix(image)
+#     X.append(features)
+#     y.append(0)  # Sentimen negatif
 
-# Pisahkan data menjadi data latih dan data uji
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# # Pisahkan data menjadi data latih dan data uji
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-def knn_predict(features, n):
-    # Inisialisasi model KNN
-    knn = KNeighborsClassifier(n_neighbors=n)
-    # Latih model
-    knn.fit(X_train, y_train)
-    # Prediksi sentimen
-    prediction = knn.predict([features])
-    # Evaluasi model
-    accuracy = knn.score(X_test, y_test)
+def model_predict(features):
+    model = joblib.load("model_saved")
+    prediction = model.predict([features])
+    accuracy = model.score(X_test, y_test)
     accuracy_percentage = accuracy * 100
     return prediction[0], accuracy_percentage
 

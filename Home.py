@@ -8,7 +8,6 @@ st.title("Welcome to IEIS! 👋")
 st.caption("Image Emotion Identification System (IEIS) is a web-based application that can analyze the sentiment of the image. This app utilizes the GLCM method for texture analysis, and the K-Nearest Neighbors (KNN) algorithm to classify the image's sentiment with more than 2,000 dataset. It is important to note that the uploaded images should have a resolution of 48x48 pixels, a 1:1 aspect ratio and be properly aligned with the face.")
 
 uploaded_file = st.file_uploader("Choose a file", type=['png', 'jpg', 'jpeg'])
-k = st.number_input("Enter the value of k", min_value=1)
 
 if uploaded_file is None:
     button = st.button("Predict", disabled=True)
@@ -29,11 +28,11 @@ else:
 
         img = util.img_as_ubyte(img)
         new_features = be.glcm_matrix(img)
-        prediction = be.knn_predict(new_features, k)
+        prediction = be.model_predict(new_features)
 
         col1, col2 = st.columns(2)
         with col1:
-            st.image(image, caption=uploaded_file.name, use_column_width=True)
+            st.image(uploaded_file, caption=uploaded_file.name, use_column_width=True)
 
         with col2:
             sentiment = "Happy 😊" if prediction[0] == 1 else "Sad 😔"
