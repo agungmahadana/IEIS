@@ -1,10 +1,22 @@
 import os
 import joblib
 import numpy as np
-from skimage import io, color, util
+from skimage import io, color, util, transform
 from skimage.feature import graycomatrix, graycoprops
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+
+def initialization(image):
+    image = io.imread(image)
+    # Periksa jika gambar tidak memiliki resolusi 48x48
+    if (image.shape[0] != 48) or (image.shape[1] != 48):
+        image = transform.resize(image, (48, 48))
+    # Periksa jika gambar memiliki saluran Alpha
+    if len(image.shape) == 3:
+        image = image[:, :, :3]
+        image = color.rgb2gray(image)
+    image = util.img_as_ubyte(image)
+    return image
 
 # Hitung fitur GLCM
 def compute_glcm(image, angles):
@@ -23,44 +35,14 @@ def glcm_matrix(image):
         matrix.append(row)
     return np.array(matrix).flatten()
 
-# X = []  # Features
-# y = []  # Labels
-
-# # Load citra dengan ekspresi happy
-# positive_images = os.listdir("dataset/happy/")
-# for img_path in positive_images:
-#     image = io.imread("dataset/happy/" + img_path)
-#     features = glcm_matrix(image)
-#     X.append(features)
-#     y.append(1)  # Sentimen positif
-
-# # Load citra dengan ekspresi sad
-# negative_images = os.listdir("dataset/sad/")
-# for img_path in negative_images:
-#     image = io.imread("dataset/sad/" + img_path)
-#     features = glcm_matrix(image)
-#     X.append(features)
-#     y.append(0)  # Sentimen negatif
-
-# # Pisahkan data menjadi data latih dan data uji
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+# Prediksi model
 def model_predict(features):
-    model = joblib.load("model_saved")
+    model = joblib.load("models/best_model")
     prediction = model.predict([features])
-    accuracy = model.score(X_test, y_test)
-    accuracy_percentage = accuracy * 100
-    return prediction[0], accuracy_percentage
+    return prediction[0]
 
-def knn_score(n):
-    # Inisialisasi model KNN
-    knn = KNeighborsClassifier(n_neighbors=n)
-    # Latih model
-    knn.fit(X_train, y_train)
-    # Evaluasi model
-    accuracy = knn.score(X_test, y_test)
-    accuracy_percentage = accuracy * 100
-    return accuracy_percentage.round(2)
-
-def get_data():
-    return [len(X_train), len(X_test)]
+def get_sentiment(image):
+    image = initialization(image)
+    new_features = glcm_matrix(image)
+    prediction = model_predict(new_features)
+    return prediction
