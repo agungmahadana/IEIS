@@ -9,7 +9,7 @@ st.caption("Image Emotion Identification System (IEIS) is a web-based applicatio
 
 uploaded_file = st.file_uploader("Choose a file", accept_multiple_files=True, type=['png', 'jpg', 'jpeg'])
 
-if uploaded_file is None:
+if len(uploaded_file) == 0:
     button = st.button("Predict", disabled=True)
 
 else:
