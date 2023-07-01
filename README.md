@@ -15,6 +15,7 @@ Use the `README.md` to get started.
 ## Built With
 
 - ![Python](https://img.shields.io/badge/python-FFD43B?style=for-the-badge&logo=python)
+- ![Jupyter](https://img.shields.io/badge/jupyter-gray?style=for-the-badge&logo=jupyter)
 - ![Streamlit](https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -62,6 +63,7 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information
 ## Acknowledgments
 
 - [Python](https://www.python.org/)
+- [Jupyter](https://jupyter.org/)
 - [Streamlit](https://streamlit.io/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
