@@ -37,12 +37,18 @@ def glcm_matrix(image):
 
 # Prediksi model
 def model_predict(features):
-    model = joblib.load("models/best_model")
+    model = joblib.load("best_model")
     prediction = model.predict([features])
-    return prediction[0]
+    if prediction[0] == 1:
+        positive_proba = model.predict_proba([features])[0][1]
+        percentage = positive_proba * 100
+    else:
+        negative_proba = model.predict_proba([features])[0][0]
+        percentage = (1 - negative_proba) * 100
+    return prediction[0], round(percentage)
 
 def get_sentiment(image):
     image = initialization(image)
     new_features = glcm_matrix(image)
-    prediction = model_predict(new_features)
-    return prediction
+    prediction, percentage = model_predict(new_features)
+    return prediction, percentage

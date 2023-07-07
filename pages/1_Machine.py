@@ -9,16 +9,10 @@ st.title("Machine ⚙️")
 
 def real_k():
     st.subheader('Percentage of Accuracy Testing')
-    k = [3, 5, 7, 9]
-    acc1 = joblib.load("models/acc_3")
-    acc2 = joblib.load("models/acc_5")
-    acc3 = joblib.load("models/acc_7")
-    acc4 = joblib.load("models/acc_9")
-    accuracy = [acc1, acc2, acc3, acc4]
-    chart_data = pd.DataFrame(
-        {'k': [float(val) for val in accuracy]},
-        index=k
-    )
+    k_values = list(range(1, 100, 2))
+    distance_metrics = ['euclidean', 'manhattan', 'cosine']
+    df = pd.read_csv('models.csv').T
+    chart_data = pd.DataFrame(df.values, columns=distance_metrics, index=k_values)
     st.area_chart(chart_data)
 
 def fixed_data():

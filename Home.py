@@ -20,11 +20,12 @@ else:
         emoji = []
 
         for image in uploaded_file:
-            sentiment.append(be.get_sentiment(image))
-            if be.get_sentiment(image) == 1:
-                emoji.append("🤓")
+            analysis = be.get_sentiment(image)
+            sentiment.append(analysis[0])
+            if analysis[0] == 1:
+                emoji.append(f"({analysis[1]}% 🤓)")
             else:
-                emoji.append("😭")
+                emoji.append(f"({analysis[1]}% 😭)")
 
         happy = sentiment.count(1)
         sad = sentiment.count(0)
